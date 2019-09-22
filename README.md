@@ -7,6 +7,16 @@ _Single header_ that supports **Lua interface** for C++
 - Support Lua 5.1 to 5.3
 - With Lua 5.3 style
 
+### how it works?
+
+```
+C lua_State* --+
+               v
+C++ class:  [this]
+              ::
+method calling  [this] + (arg, ...) -> CAPI: (L, arg, ...)
+```
+
 ### usage
 
 Add `ilua.h`, `compat-5.3.h`, `compat-5.3.c` to your project and...
@@ -21,10 +31,10 @@ using namespace ILua;
 - **Simple module**
 
 ```cpp
-static int myAdd(State& L) {
-    int a = L.toInt();      // get arg 1 -> int 
-    int b = L.toInt();      // get arg 2 -> int
-    L.push(a + b);          // push int
+static int myAdd(State& L) {                       // another way
+    int a = L.toInt(1);     // get arg 1 -> int       |  auto a = L.to<int>(1);
+    int b = L.toInt(2);     // get arg 2 -> int       |  auto b = L.to<int>(2);
+    L.push(a + b);          // push int               |  L += (a + b);
     return 1;               // 1 return
 }
 

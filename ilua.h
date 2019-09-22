@@ -682,7 +682,7 @@ namespace ILua
 		}
 
 		// lua_register
-		void reg(const char *name, CFunc *func) {
+		void reg(const char *name, CFunc func) {
 			auto L = reinterpret_cast<lua_State*>(this);
 			lua_register(L, name, (lua_CFunction)func);
 		}

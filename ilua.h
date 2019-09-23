@@ -421,6 +421,12 @@ namespace ILua
 			va_end(ap);
 			return ret;
 		}
+		
+		// lua_pushlightuserdata
+		void push(void *p) {
+			auto L = reinterpret_cast<lua_State*>(this);
+			lua_pushlightuserdata(L, p);
+		}
 
 		// lua_pushcclosure
 		void push(CFunc func, int n = 0) {
